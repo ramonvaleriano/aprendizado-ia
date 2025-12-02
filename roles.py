@@ -95,7 +95,35 @@ class Roles:
         print(f"Response: {reponse}")
 
         return reponse
+    
+    def fouth_chat_completion(self):
+        chat_completion = self.client.chat.completions.create(
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "Você é um especialista em Inteligencia artificial focado em explicar conceitos"
+                        "de forma clara, estruturada e prática. Sempre inicie suas respostas com um "
+                        "resumo em até 3 linhas, depois detalhe com exemplos reais e aplicações no mundo "
+                        "dos negócios e tecnologias. Evite termos excessivamente técnicos sem explicação "
+                        "e, quando necessário, use analogias simples. "
+                        "Se o ususário pedir código, forneça em python bem comentados."
+                    )
+                },
+                {
+                    "role": "user",
+                    "content": "Explique a importância de LLMs com baixa latência"
+                }
+            ],
+            model=self.__model_start
+        )
+
+        response = chat_completion.choices[0].message.content
+
+        print(f"Response: {response}")
+
+        return response
 
 
 test_roles = Roles()
-test_roles.thrith_chat_completion()
+test_roles.fouth_chat_completion()

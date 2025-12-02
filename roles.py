@@ -10,15 +10,25 @@ class Roles:
       a role é o papel daquele prompt e ele pode assumir. 
 
       User: Mensagem de usuário
-      Assistent: Resposta do Modelo
-      System: Instruções do comportamente para o modelo  
+      Assistent: Resposta do Modelo. Uma forma de controlar a resposta do modelo.
+      System: Instruções do comportamente para o modelo. O system vai denotar o comportamento para um modelo.
     
     """
     def __init__(self):
         self.__model_start = model_start
         self.__groq_apy_key = groq_apy_key
+        self.system_prompot = None
         self.client = Groq(api_key=self.__groq_apy_key) # Intaciando o cliente com a chave da API groq
-        
+
+    @staticmethod
+    def displaying_message(componet_of_message):
+        print("\n\nMensagem Generalista: ")
+        print(componet_of_message)
+        print('\n')
+        print(f"Mensagem response: {componet_of_message.choices[0].message.content}")
+
+        return componet_of_message.choices[0].message.content
+
     def first_chat_completion(self):
         chat_completion = self.client.chat.completions.create(
             messages=[
@@ -37,7 +47,55 @@ class Roles:
         print(f"Resposta: {response}")
 
         return response
+    
+    def second_chat_completion(self):
+        chat_completion = self.client.chat.completions.create(
+            messages=[
+                {
+                    "role":"system",
+                    "content": "Você é um especialista em IA que responde de forma clara e objetiva."
+                },
+                {
+                    "role": "user",
+                    "content": "Me explique de forma reduzida o que são LLMs."
+                }
+            ],
+            model=self.__model_start
+        )
+
+        response = self.displaying_message(chat_completion)
+        
+        return response
+
+    def thrith_chat_completion(self):
+        chat_completion = self.client.chat.completions.create(
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Você é um especialista em IA que responde de forma clara e objetiva."
+                },
+                {
+                    "role": "user",
+                    "content": "Explique a importancia de LLMs com baixa latência."
+                },
+                {
+                    "role": "assistant",
+                    "content": "LLMs com baixa latência permitem que respostas mais rápidas, o que melhora a experiência do usuário."
+                },
+                {
+                    "role": "user",
+                    "content": "Pode dar exemplos de aplicações práticas?"
+                }
+            ],
+            model=self.__model_start
+        )
+
+        reponse = chat_completion.choices[0].message.content
+
+        print(f"Response: {reponse}")
+
+        return reponse
 
 
 test_roles = Roles()
-test_roles.first_chat_completion()
+test_roles.thrith_chat_completion()

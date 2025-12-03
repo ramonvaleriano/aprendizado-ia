@@ -85,7 +85,31 @@ class Parameters:
         print(f"Response: {response}")
 
         return response
+    
+    def fouth_chat_parameters(self, prompt="Complete a frase: 'A inteligência artifical será...'"):
+        "Modelo focado, top_p 0.1"
+        response_focused = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=1.0,
+            top_p=0.1,
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Você é um futurista que faz previsões sérias e objetivas sobre tecnologia"
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        )
+
+        response = response_focused.choices[0].message.content
+
+        print(f"Response: {response}")
+
+        return response
 
     
 test_parameters = Parameters()
-test_parameters.thrith_chat_parameters()
+test_parameters.fouth_chat_parameters()

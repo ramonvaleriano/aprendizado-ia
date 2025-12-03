@@ -38,5 +38,31 @@ class Parameters:
 
         return response
     
+    def second_chat_parameters(self, prompt="Escreva uma frase poética sobre o anoitecer"):
+        "Usando uma temperatura mais equilibrada, 0.7"
+
+        response_medium = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.7,
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Você é um poeta classico que mistura a imagens da natureza."
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        )
+
+        response = response_medium.choices[0].message.content
+
+        print(f"Response: {response}")
+
+        return response
+
+
+    
 test_parameters = Parameters()
-test_parameters.firt_chat_parameters()
+test_parameters.second_chat_parameters()

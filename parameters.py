@@ -109,7 +109,33 @@ class Parameters:
         print(f"Response: {response}")
 
         return response
+    
+    def fifth_chat_parameters(self, prompt="Complete a frase: 'A inteligência artifical será...'"):
+        "Modelo mais balanceado, top_p 0.7 - Equilibrado"
+        reponse_balance = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=1.0,
+            top_p=0.7,
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Você é um futurista que mistura objetividade com toques criativos em previsões."
+                },
+                {
+                    'role': "user",
+                    "content": prompt
+                }
+            ]
+        )
+
+        response = reponse_balance.choices[0].message.content
+
+        print(f"Response: {response}")
+
+        return response
+
+
 
     
 test_parameters = Parameters()
-test_parameters.fouth_chat_parameters()
+test_parameters.fifth_chat_parameters()

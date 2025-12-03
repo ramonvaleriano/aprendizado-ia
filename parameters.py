@@ -14,5 +14,29 @@ class Parameters:
         self.__model = model_start
         self.client = Groq(api_key=self.__api_key)
 
-    def firt_chat_parameters(self):
-        pass
+    def firt_chat_parameters(self, prompt="Escreva uma frase poética sobre o anoitecer"):
+        "Usando temperature baixa, sendo mais deterministico. (0.0)"
+        
+        response_low = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.0,
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Você é um poeta minimalista que descreve a natureza de forma simples e direta"
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        )
+
+        response = response_low.choices[0].message.content
+
+        print(f"Response: {response}")
+
+        return response
+    
+test_parameters = Parameters()
+test_parameters.firt_chat_parameters()

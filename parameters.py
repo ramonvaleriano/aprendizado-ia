@@ -61,8 +61,31 @@ class Parameters:
         print(f"Response: {response}")
 
         return response
+    
+    def thrith_chat_parameters(self, prompt="Escreva uma frase poética sobre o anoitecer"):
+        "Usando uma temparatura mais criativa, 1.5"
 
+        response_high = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=1.5,
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Você é um poeta surrealista que usa imagens improváveis e linguagem ousada."
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        )
+
+        response = response_high.choices[0].message.content
+
+        print(f"Response: {response}")
+
+        return response
 
     
 test_parameters = Parameters()
-test_parameters.second_chat_parameters()
+test_parameters.thrith_chat_parameters()

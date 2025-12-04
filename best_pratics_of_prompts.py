@@ -39,6 +39,30 @@ class BestPraticsOfPrompts:
 
         return response
     
+    def second_prompt(self):
+        # Prompt especifico
+        prompt_especifc = "liste e explique 3 métodos de preparo de café que realcam diferentes sabores."
+        response_especifc = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.7,
+            max_completion_tokens=400,
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Você é um especilista em grastronomia."
+                },
+                {
+                    "role": "user",
+                    "content": prompt_especifc
+                }
+            ]
+        )
+
+        response = response_especifc.choices[0].message.content
+
+        print(f"Reponse: {response}")
+
+        return response
 
 test_best_pratics = BestPraticsOfPrompts()
-test_best_pratics.first_prompt()
+test_best_pratics.second_prompt()

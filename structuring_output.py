@@ -10,7 +10,7 @@ class StructuringOutput:
         self.client = Groq(api_key=groq_apy_key)
 
     def first_output(self):
-        # Criando estrutura de saída.
+        # Saída em formato de tabela.
         system_prompt = """
         Você é um historiador especialista em civilizações antigas.
         Sempre responda no formato de tabela:

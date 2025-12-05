@@ -89,6 +89,34 @@ class BestPraticsOfPrompts:
         print(f"Reponse: {response}")
 
         return response
+    
+    def fouth_prompt(self):
+        # Prompt detalhado
+        prompt_detalhadao = """Monte um roteiro de 5 dias para Paris.
+        Cada dia deve conter: (1) ponto turístico principal,
+        (2) atividade gastronômica e (3) sugestão de transporte.
+        """
+        response_detalhado = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.7,
+            max_completion_tokens=400,
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Você é um guia de viagens especializado em roteiros práticos."
+                },
+                {
+                    "role": "user",
+                    "content": prompt_detalhadao
+                }
+            ]
+        )
+
+        response = response_detalhado.choices[0].message.content
+
+        print(f"Reponse: {response}")
+
+        return response
 
 test_best_pratics = BestPraticsOfPrompts()
-test_best_pratics.second_prompt()
+test_best_pratics.fouth_prompt()

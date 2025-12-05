@@ -201,6 +201,41 @@ class BestPraticsOfPrompts:
         print(f"Response: {response}")
 
         return response
+    
+    def eigth_prompt(self):
+        # Com delimitedores
+        prompt_com_delimitadore = """
+        Analise os seguintes dados de receita anual:
+
+        --- DADOS ---
+        2022: R$ 2M
+        2023: R$ 3.5M
+        2024: R$ 5m
+        --- FIM DE DADOS ---
+
+        TAREFA: Identifique o ritmo de crescimento e sugira 2 estrategias de expansão.
+        """
+
+        response_com_delimitador = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.7,
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Você é um um consultor de negócios e deve considerar apenas os dados entre os delimitadores."
+                },
+                {
+                    "role": "user",
+                    "content": prompt_com_delimitadore
+                }
+            ]
+        )
+
+        response = response_com_delimitador.choices[0].message.content
+
+        print(f"Response: {response}")
+
+        return response
 
 test_best_pratics = BestPraticsOfPrompts()
-test_best_pratics.seventh_prompt()
+test_best_pratics.eigth_prompt()

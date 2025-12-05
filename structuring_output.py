@@ -71,6 +71,37 @@ class StructuringOutput:
 
         return response
     
+    def thrird_output(self):
+        # Lista númerada.
+        system_prompt = """
+        Você cria listas númeradas no formato:
+        1. [Título]: [Descrição curta]
+        """
+        user_prompt = "Liste 4 estrategias de treinameto usda por atletas olimpicos."
+
+        response_list_numeric = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.7,
+            max_completion_tokens=200,
+            messages=[
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": user_prompt
+                }
+            ]
+        )
+
+        response = response_list_numeric.choices[0].message.content
+
+        print("Response: ")
+        print(response)
+
+        return response
+    
 
 test_outputs = StructuringOutput()
-test_outputs.second_output()
+test_outputs.thrird_output()

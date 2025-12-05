@@ -102,6 +102,40 @@ class StructuringOutput:
 
         return response
     
+    def fourth_output(self):
+        # Lista Hierarquica
+        system_prompt = """
+        Você organiza informações em listas hierarquicas no formato:
+        * Categoria Principal
+            - Subcategoria 1
+            - Subcategoria 2
+        """
+
+        user_prompt_hierarquia = "Organize áreas da ciência em categorais: Física, Biologia, Química"
+
+        response_hierarquia = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.6,
+            messages=[
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": user_prompt_hierarquia
+                }
+            ]
+        )
+
+        response = response_hierarquia.choices[0].message.content
+
+        print("Response: ")
+        print(response)
+
+        return response
+
+    
 
 test_outputs = StructuringOutput()
-test_outputs.thrird_output()
+test_outputs.fourth_output()

@@ -171,6 +171,36 @@ class BestPraticsOfPrompts:
         print(f"Response: {reponse}")
 
         return reponse
+    
+    def seventh_prompt(self):
+        # Sem delimitadores
+        prompt_sem_delimitadores = """
+        Analise o desempenho de uma startup:
+        Receita 2022: R$2M, Receita 2023: R$3.5M, Receita 2024: R$ 5M.
+        Faça observações e dê sugestões
+        """
+
+        response_prompt_sem_delimitadores = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.7,
+            max_completion_tokens=400,
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Você é um consutor de negócios."
+                },
+                {
+                    "role": "user",
+                    "content": prompt_sem_delimitadores
+                }
+            ]
+        )
+
+        response = response_prompt_sem_delimitadores.choices[0].message.content
+
+        print(f"Response: {response}")
+
+        return response
 
 test_best_pratics = BestPraticsOfPrompts()
-test_best_pratics.sixth_prompt()
+test_best_pratics.seventh_prompt()

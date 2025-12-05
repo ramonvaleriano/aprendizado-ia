@@ -236,6 +236,50 @@ class BestPraticsOfPrompts:
         print(f"Response: {response}")
 
         return response
+    
+    def end_prompt(self):
+        # Prompt com todas as estrategias
+        system_prompt = """
+        Você é um estrategista de marketing criativo.
+        Sempre siga o formato solicitado e use linguagem clara e objetiva.
+        """
+
+        user_prompt = """
+        TAREFA: Criar um mini plano e marketing para lançamento de uma aplicativo fitnes.
+
+        --- INFORMAÇÕES ---
+        Público: Jovens de 18-30 anos
+        Orçamento: R$ 50.000
+        Objetivo: 10.000 downloads no primeiro mês
+        --- FIM ---
+
+        FORMATO DA RESPOSTA:
+        1. POSICIONAMETO (2 frases)
+        2. CANAIS DE MARKETING (3 itens númerados)
+        3. AÇÃO CRIATIVA PRINCIPAL (1 frase)
+        """
+
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.7,
+            messages=[
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": user_prompt
+                }
+            ],
+            max_completion_tokens=800
+        )
+
+        response = response_complete.choices[0].message.content
+
+        print(f"Response: {response}")
+
+        return response
 
 test_best_pratics = BestPraticsOfPrompts()
-test_best_pratics.eigth_prompt()
+test_best_pratics.end_prompt()

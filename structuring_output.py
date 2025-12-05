@@ -45,6 +45,32 @@ class StructuringOutput:
 
         return response
     
+    def second_output(self):
+        # Saída em uma lista simples.
+        system_prompt = "Você é um critico de cinema que apresenta informações em listas claras."
+        user_prompt = "Liste 5 filmes premiados no Oscar que marcaram a história do cinema."
+
+        response_list_simple = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.6,
+            messages=[
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": user_prompt
+                }
+            ]
+        )
+
+        response = response_list_simple.choices[0].message.content
+
+        print(f"Response: {response}")
+
+        return response
+    
 
 test_outputs = StructuringOutput()
-test_outputs.first_output()
+test_outputs.second_output()

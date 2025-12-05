@@ -2,13 +2,15 @@ from groq import Groq
 
 from settings import groq_apy_key, model_start
 
+
 class BestPraticsOfPrompts:
     """
-        Use Prompts especificos
-        Instruções Precisas e Detalhadas
-        Controle o formato da resposta
-        Use separadores para organizar informações
+    Use Prompts especificos
+    Instruções Precisas e Detalhadas
+    Controle o formato da resposta
+    Use separadores para organizar informações
     """
+
     def __init__(self):
         self.__api_key = groq_apy_key
         self.__model = model_start
@@ -22,15 +24,9 @@ class BestPraticsOfPrompts:
             temperature=0.7,
             max_completion_tokens=400,
             messages=[
-                {
-                    "role": "system",
-                    "content": "Você é um especialista em gastronomia"
-                },
-                {
-                    "role": "user",
-                    "content": prompt_vago
-                }
-            ]
+                {"role": "system", "content": "Você é um especialista em gastronomia"},
+                {"role": "user", "content": prompt_vago},
+            ],
         )
 
         response = response_vago.choices[0].message.content
@@ -38,7 +34,7 @@ class BestPraticsOfPrompts:
         print(f"Reponse: {response}")
 
         return response
-    
+
     def second_prompt(self):
         # Prompt especifico
         prompt_especifc = "liste e explique 3 métodos de preparo de café que realcam diferentes sabores."
@@ -47,15 +43,9 @@ class BestPraticsOfPrompts:
             temperature=0.7,
             max_completion_tokens=400,
             messages=[
-                {
-                    "role": "system",
-                    "content": "Você é um especilista em grastronomia."
-                },
-                {
-                    "role": "user",
-                    "content": prompt_especifc
-                }
-            ]
+                {"role": "system", "content": "Você é um especilista em grastronomia."},
+                {"role": "user", "content": prompt_especifc},
+            ],
         )
 
         response = response_especifc.choices[0].message.content
@@ -63,7 +53,7 @@ class BestPraticsOfPrompts:
         print(f"Reponse: {response}")
 
         return response
-    
+
     def third_prompt(self):
         # Prompt Genérico
         prompt_generico = "Escreva sobre viagens na Europa"
@@ -73,15 +63,9 @@ class BestPraticsOfPrompts:
             temperature=0.7,
             max_completion_tokens=400,
             messages=[
-                {
-                    "role": "system",
-                    "content": "Você um guia de viagens"
-                },
-                {
-                    "role": "user",
-                    "content": prompt_generico
-                }
-            ]
+                {"role": "system", "content": "Você um guia de viagens"},
+                {"role": "user", "content": prompt_generico},
+            ],
         )
 
         response = response_generic.choices[0].message.content
@@ -89,7 +73,7 @@ class BestPraticsOfPrompts:
         print(f"Reponse: {response}")
 
         return response
-    
+
     def fouth_prompt(self):
         # Prompt detalhado
         prompt_detalhadao = """Monte um roteiro de 5 dias para Paris.
@@ -103,13 +87,10 @@ class BestPraticsOfPrompts:
             messages=[
                 {
                     "role": "system",
-                    "content": "Você é um guia de viagens especializado em roteiros práticos."
+                    "content": "Você é um guia de viagens especializado em roteiros práticos.",
                 },
-                {
-                    "role": "user",
-                    "content": prompt_detalhadao
-                }
-            ]
+                {"role": "user", "content": prompt_detalhadao},
+            ],
         )
 
         response = response_detalhado.choices[0].message.content
@@ -129,13 +110,10 @@ class BestPraticsOfPrompts:
             messages=[
                 {
                     "role": "system",
-                    "content": "Você é um nutricionista que fala sobre alimentos."
+                    "content": "Você é um nutricionista que fala sobre alimentos.",
                 },
-                {
-                    "role": "user",
-                    "content": prompt_sem_limite
-                }
-            ]
+                {"role": "user", "content": prompt_sem_limite},
+            ],
         )
 
         response = response_sem_limite.choices[0].message.content
@@ -143,7 +121,7 @@ class BestPraticsOfPrompts:
         print(f"Reponse: {response}")
 
         return response
-    
+
     def sixth_prompt(self):
         # Limitando o formato
         prompt_limite_format = """Liste exatamente 4 frutas tropicais
@@ -157,13 +135,10 @@ class BestPraticsOfPrompts:
             messages=[
                 {
                     "role": "system",
-                    "content": "Você é um nutricionista e deve seguir o formato solicitado."
+                    "content": "Você é um nutricionista e deve seguir o formato solicitado.",
                 },
-                {
-                    "role": "user",
-                    "content": prompt_limite_format
-                }
-            ]
+                {"role": "user", "content": prompt_limite_format},
+            ],
         )
 
         reponse = response_limite_format.choices[0].message.content
@@ -171,7 +146,7 @@ class BestPraticsOfPrompts:
         print(f"Response: {reponse}")
 
         return reponse
-    
+
     def seventh_prompt(self):
         # Sem delimitadores
         prompt_sem_delimitadores = """
@@ -185,15 +160,9 @@ class BestPraticsOfPrompts:
             temperature=0.7,
             max_completion_tokens=400,
             messages=[
-                {
-                    "role": "system",
-                    "content": "Você é um consutor de negócios."
-                },
-                {
-                    "role": "user",
-                    "content": prompt_sem_delimitadores
-                }
-            ]
+                {"role": "system", "content": "Você é um consutor de negócios."},
+                {"role": "user", "content": prompt_sem_delimitadores},
+            ],
         )
 
         response = response_prompt_sem_delimitadores.choices[0].message.content
@@ -201,7 +170,7 @@ class BestPraticsOfPrompts:
         print(f"Response: {response}")
 
         return response
-    
+
     def eigth_prompt(self):
         # Com delimitedores
         prompt_com_delimitadore = """
@@ -222,13 +191,10 @@ class BestPraticsOfPrompts:
             messages=[
                 {
                     "role": "system",
-                    "content": "Você é um um consultor de negócios e deve considerar apenas os dados entre os delimitadores."
+                    "content": "Você é um um consultor de negócios e deve considerar apenas os dados entre os delimitadores.",
                 },
-                {
-                    "role": "user",
-                    "content": prompt_com_delimitadore
-                }
-            ]
+                {"role": "user", "content": prompt_com_delimitadore},
+            ],
         )
 
         response = response_com_delimitador.choices[0].message.content
@@ -236,7 +202,7 @@ class BestPraticsOfPrompts:
         print(f"Response: {response}")
 
         return response
-    
+
     def end_prompt(self):
         # Prompt com todas as estrategias
         system_prompt = """
@@ -263,16 +229,10 @@ class BestPraticsOfPrompts:
             model=self.__model,
             temperature=0.7,
             messages=[
-                {
-                    "role": "system",
-                    "content": system_prompt
-                },
-                {
-                    "role": "user",
-                    "content": user_prompt
-                }
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
             ],
-            max_completion_tokens=800
+            max_completion_tokens=800,
         )
 
         response = response_complete.choices[0].message.content
@@ -280,6 +240,3 @@ class BestPraticsOfPrompts:
         print(f"Response: {response}")
 
         return response
-
-test_best_pratics = BestPraticsOfPrompts()
-test_best_pratics.end_prompt()

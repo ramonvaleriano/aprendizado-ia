@@ -143,6 +143,34 @@ class BestPraticsOfPrompts:
         print(f"Reponse: {response}")
 
         return response
+    
+    def sixth_prompt(self):
+        # Limitando o formato
+        prompt_limite_format = """Liste exatamente 4 frutas tropicais
+        Use o formato:
+        - [Nome]: [1 Beneficio em um frase]
+        """
+        response_limite_format = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.7,
+            max_completion_tokens=400,
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Você é um nutricionista e deve seguir o formato solicitado."
+                },
+                {
+                    "role": "user",
+                    "content": prompt_limite_format
+                }
+            ]
+        )
+
+        reponse = response_limite_format.choices[0].message.content
+
+        print(f"Response: {reponse}")
+
+        return reponse
 
 test_best_pratics = BestPraticsOfPrompts()
-test_best_pratics.fith_prompt()
+test_best_pratics.sixth_prompt()

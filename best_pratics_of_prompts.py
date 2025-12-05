@@ -118,5 +118,31 @@ class BestPraticsOfPrompts:
 
         return response
 
+    def fith_prompt(self):
+        # Sem limite de formato de saída.
+        prompt_sem_limite = "Quais são frutas tropicais famosas"
+
+        response_sem_limite = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.7,
+            max_completion_tokens=400,
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Você é um nutricionista que fala sobre alimentos."
+                },
+                {
+                    "role": "user",
+                    "content": prompt_sem_limite
+                }
+            ]
+        )
+
+        response = response_sem_limite.choices[0].message.content
+
+        print(f"Reponse: {response}")
+
+        return response
+
 test_best_pratics = BestPraticsOfPrompts()
-test_best_pratics.fouth_prompt()
+test_best_pratics.fith_prompt()

@@ -169,8 +169,42 @@ class StructuringOutput:
 
         return response
 
+    def sixth_output(self):
+        # Formato Customizado.
+
+        system_prompt = """
+        Você cria cards informativos sobre missões espaciais no formato:
+
+        🚀 MISSÃO: [Nome]
+        📅 ANO: [Ano]
+        🌌 OBJETIVO: [Resumo em 1 frase]
+        🔭 RESULTADO: [Principais descobertas]
+        """
+        user_prompt = "Crie um card sobre a missão Voyager 1."
+
+        response_output = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.6,
+            messages=[
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": user_prompt
+                }
+            ]
+        )
+
+        response = response_output.choices[0].message.content
+
+        print("Response: ")
+        print(response)
+
+        return response
 
     
 
 test_outputs = StructuringOutput()
-test_outputs.fifth_output()
+test_outputs.sixth_output()

@@ -135,7 +135,42 @@ class StructuringOutput:
 
         return response
 
+    def c(self):
+        # Parágrafos Estruturados
+        system_prompt = """
+        Você escreve textos estruturados no formato:
+
+        INTRODUÇÃO: [1-2 frases de contexto]
+        DESENVOLVIMENTO: [Explica datalhadas]
+        CONCLUSÃO: [Síntese Final]
+        """
+
+        user_prompt = "Explique a importância da moda como expressão cultural"
+
+        response_output = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.7,
+            messages=[
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": user_prompt
+                }
+            ]
+        )
+
+        response = response_output.choices[0].message.content
+
+        print("Response: ")
+        print(response)
+
+        return response
+
+
     
 
 test_outputs = StructuringOutput()
-test_outputs.fourth_output()
+test_outputs.response_output()

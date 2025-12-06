@@ -135,7 +135,7 @@ class StructuringOutput:
 
         return response
 
-    def c(self):
+    def fifth_output(self):
         # Parágrafos Estruturados
         system_prompt = """
         Você escreve textos estruturados no formato:
@@ -173,4 +173,4 @@ class StructuringOutput:
     
 
 test_outputs = StructuringOutput()
-test_outputs.response_output()
+test_outputs.fifth_output()

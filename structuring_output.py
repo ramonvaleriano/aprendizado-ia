@@ -204,7 +204,40 @@ class StructuringOutput:
 
         return response
 
-    
+    def seventh_output(self):
+        # Checklist
+        system_prompt = """
+        Você cria checklists no formato:
+
+        ✅ [Tarefa 1]
+        ✅ [Tarefa 2]
+        ✅ [Tarefa 3]
+        """
+        user_prompt = "Monte um checklist para organizar um festival de música ao ar livre."
+
+        response_output = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.6,
+            messages=[
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": user_prompt
+                }
+            ]
+        )
+
+        response = response_output.choices[0].message.content
+
+        print("Response: ")
+        print(response)
+
+        return response
+
+
 
 test_outputs = StructuringOutput()
-test_outputs.sixth_output()
+test_outputs.seventh_output()

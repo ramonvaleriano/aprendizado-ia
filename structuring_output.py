@@ -236,8 +236,51 @@ class StructuringOutput:
         print(response)
 
         return response
+    
+    def eight_output(self):
+        system_prompt = """
+        Você cria relatários executivos no formato:
 
+        RESUMO
+        [Resumo em 2-3 frases]
+
+        DESTAQUES
+        1. [Ponto-chave 1]
+        2. [Ponto-chave 2]
+        3. [Ponto-chave 3]
+        
+        RECOMENDAÇÕES
+        * Curto prazo: [Ação imediata]
+        * Média prazo: [Ação estratégica]
+        * Longo prazo: [Ação futura]
+        """
+
+        user_prompt = """
+        Crie relatórios executivos sobre os impactos da exploração de Marte para economia global.
+        """
+
+        reponse_complete = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.6,
+            messages=[
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": user_prompt
+                }
+            ]
+        )
+
+        response = reponse_complete.choices[0].message.content
+
+        print("Response:")
+        print(response)
+
+        return response
 
 
 test_outputs = StructuringOutput()
-test_outputs.seventh_output()
+test_outputs.eight_output()

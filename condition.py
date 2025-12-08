@@ -75,11 +75,50 @@ class Condition:
         print(f"Response: \n{response}")
 
         return response
+    
+    async def adaptation_user(self):
+        # Adaptaão ao Nível de Usuário.
+        system_prompt = """
+        Você é um coach de saúde que adapta explicações conforme o nível:
+
+        INICIANTE (palavra: "Novo", "começando", "não sei nada"):
+        - Explicações muito simples
+        - Exemplos cotidianos
+        - Passo a passo claro
+
+        INTERMEDIÁRIO (palavras: "Já sei, "tenho alguma experiência")
+        - Respostas diretas
+        - Pequenos detalhes técnicos
+        - Sugestões práticas
+
+        AVANÇADO (palavras: "experiente", "profissional", "avançado"):
+        - Respostas técnicas
+        - Citações científicas
+        - Estratéias avançadas
+        """
+
+        user_prompt = "Sou novo em dieta, como começo a comer melhor?"
+
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.7,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+        )
+
+        response = response_complete.choices[0].message.content
+
+        print(f"Response: \n{response}")
+
+        return response
+
 
 
 async def testing_methods():
     condition_test = Condition()
-    await condition_test.base_condition()
+    await condition_test.adaptation_user()
 
 
 asyncio.run(testing_methods())

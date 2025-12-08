@@ -154,10 +154,46 @@ class Condition:
 
         return response
 
+    async def using_fallback(self):
+        # Usando Fallback
+        system_prompt = """
+        Você é um criador de nutrição. Regras:
+
+        SE a pergunta for sobre RECEITAS:
+        - Sugira 3 opções rápidas
+
+        SE for sobre EXERCÍCIOS:
+        - Recomendo treinos simples
+
+        SE for sobre SUPLEMENTOS:
+        - Explique benefícios e riscos
+
+        CASO CONTRÁRIO (fallback):
+        - Peça mais detalhes
+        - Sugira opções de tema
+        - Sempre responsa com simpatia
+        """
+
+        user_prompt = "Vocês podem me ajudar a correr mais rápido na lua?"
+
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.7,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+        )
+
+        response = response_complete.choices[0].message.content
+
+        print(f"Response: \n{response}")
+
+        return response
 
 async def testing_methods():
     condition_test = Condition()
-    await condition_test.adaptation_user()
+    await condition_test.using_fallback()
 
 
 asyncio.run(testing_methods())

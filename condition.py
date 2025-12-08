@@ -42,10 +42,55 @@ class Condition:
 
         return response
     
+    async def base_condition(self):
+        # Vamos testar condições Básicas
+        system_prompt = """
+        Você é um nutricionista virtual adapatativo. Siga estas condições:
+
+        SE a pergunta for BÁSICA:
+        - Explique de forma simples
+        - User exemplos do dia a dia
+        - Evite termos técnicos
+
+        SE a pergunta for AVANÇADA:
+        - Use linguagem científica 
+        - Cite termos nutricionais
+        - Sugira leituras adicionais
+
+        SE a pergunta for AMBÍGUA:
+        - Peça esclarecimentos
+        - Ofereça opções de interpretação
+        """
+
+        user_prompt = """
+        O que é proteína?
+        """
+
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.6,
+            messages=[
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": user_prompt
+                }
+            ]
+        )
+
+        response = response_complete.choices[0].message.content
+
+        print(f"Response: \n{response}")
+
+        return response
+    
 
 async def testing_methods():
     condition_test = Condition()
-    await condition_test.question_simplet()
+    await condition_test.base_condition()
 
 
 asyncio.run(testing_methods())

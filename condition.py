@@ -3,6 +3,7 @@ from groq import Groq
 
 from settings import groq_apy_key, model_start
 
+
 class Condition:
     def __init__(self):
         self.__model = model_start
@@ -25,15 +26,9 @@ class Condition:
             model=self.__model,
             temperature=1,
             messages=[
-                {
-                    "role": "system",
-                    "content": system_prompt
-                },
-                {
-                    "role": "user",
-                    "content": user_prompt
-                }
-            ]
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
         )
 
         response = response_complete.choices[0].message.content
@@ -41,7 +36,7 @@ class Condition:
         print(f"Response: \n{response}")
 
         return response
-    
+
     async def base_condition(self):
         # Vamos testar condições Básicas
         system_prompt = """
@@ -68,17 +63,11 @@ class Condition:
 
         response_complete = self.client.chat.completions.create(
             model=self.__model,
-            temperature=0.6,
+            temperature=0.7,
             messages=[
-                {
-                    "role": "system",
-                    "content": system_prompt
-                },
-                {
-                    "role": "user",
-                    "content": user_prompt
-                }
-            ]
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
         )
 
         response = response_complete.choices[0].message.content
@@ -86,7 +75,7 @@ class Condition:
         print(f"Response: \n{response}")
 
         return response
-    
+
 
 async def testing_methods():
     condition_test = Condition()

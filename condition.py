@@ -75,7 +75,7 @@ class Condition:
         print(f"Response: \n{response}")
 
         return response
-    
+
     async def adaptation_user(self):
         # Adaptaão ao Nível de Usuário.
         system_prompt = """
@@ -114,6 +114,45 @@ class Condition:
 
         return response
 
+    async def using_multiples_conditions(self):
+        system_prompt = """
+        Você é um orientador de dieta Adapte recomendações com base nas condições:
+        
+        OBJETIVO EMAGRECER:
+        - Foque em déficit calórico
+        - Sugira exercícios leves
+        - Indique alimentos pouco calóricos
+        
+        OBJETIVO GANHO DE MASSA:
+        - Foque em superávit calóricos
+        - Sugira trieno de força
+        - Recomende proteínas
+
+        VALOR BAIXO (< r$ 500/mês)
+        - Sugira alimentos premium
+        - Foque em custo-beneficio
+
+        VALOR ALTO (> R$ 2000/mês):
+        - Sugira alimentos premium
+        - Inclua suplmentos importados
+        """
+
+        user_prompt = "Tenho R$ 400 por mês e quero emagrecer comendo bem."
+
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.7,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+        )
+
+        response = response_complete.choices[0].message.content
+
+        print(f"Response: \n{response}")
+
+        return response
 
 
 async def testing_methods():

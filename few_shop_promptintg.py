@@ -33,15 +33,9 @@ class FewShopPrompt:
             model=self.__model,
             temperature=0.5,
             messages=[
-                {
-                    "role": "system",
-                    "content": system_prompt
-                },
-                {
-                    "role": "user",
-                    "content": user_prompt
-                }
-            ]
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
         )
 
         response = response_complete.choices[0].message.content
@@ -49,9 +43,39 @@ class FewShopPrompt:
         print(f"Response: \n{response}")
 
         return response
-    
+
+    async def one_shot_prompt(self):
+        # Usando one shot no prompt
+        system_prompt = """
+        Você é um chef renomado.
+        Receba o nome de um ingrediante e sugira um prato sofisticado onde ele seja protagonista.
+
+        Exemplo:
+        Ingrediente: Salmão
+        Sugestão -> Tartat de salmão com fresco com molho cítrico e torradas de brioche.
+        """
+
+        user_prompt = "cogumelos"
+
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.5,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+        )
+
+        response = response_complete.choices[0].message.content
+
+        print(f"Response: \n{response}")
+
+        return response
+
+
 async def test_few_shot_prompt():
     few_shot_prompt = FewShopPrompt()
-    await few_shot_prompt.zero_shot_prompot()
+    await few_shot_prompt.one_shot_prompt()
+
 
 asyncio.run(test_few_shot_prompt())

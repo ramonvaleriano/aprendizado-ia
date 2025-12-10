@@ -131,12 +131,67 @@ class UsingMultipleSteps:
         print(f"Response: \n{response}")
 
         return response
+    
+    async def one_step_comparative(self):
+        # Comparativo de um único passo.
+        singler_prompt = """
+        Crie um prompt para instalar painéis solares residenciais para uma casa de 3 quartos.
+        Considere orçamento moderado e retorno em 6-8 anos.
+        """
 
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.5,
+            messages=[
+                {
+                    "role": "user",
+                    "content": singler_prompt
+                }
+            ]
+        )
+
+        response = response_complete.choices[0].message.content
+
+        print(f"Response: \n{response}")
+
+        return response
+    
+    async def multiple_steps_compartive(self):
+        # Comparativo de multiplos passos.
+        multi_prompt = """
+        Elabore o plano em múltiplos passos:
+        PASSO 1: Levantamento (perfil de consumo mensal, telhado, sombreamento)
+        PASSO 2: Dimensionamento preliminar (kWp, inversor, string)
+        PASSO 3: Custos (equipamentos, instalação, manutenção) e incentivos
+        PASSO 4: Projeção financeira (payback, TIR, sensibilidade)
+        PASSO 5: Riscos operacionais e mitigação
+        PASSO 6: Checklist de execução e cronograma em 30/60/90 dias
+        Formate cada passo com bullets + mini-tabela quando pertinente.
+        """
+
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.5,
+            messages=[
+                {
+                    "role": "user",
+                    "content": multi_prompt
+                }
+            ]
+        )
+
+        response = response_complete.choices[0].message.content
+
+        print(f"Response: \n{response}")
+
+        return response
+
+        
 
 
 async def test_steps():
     using_multiple_steps = UsingMultipleSteps()
-    await using_multiple_steps.multiples_steps_creative()
+    await using_multiple_steps.one_step_comparative()
 
 
 asyncio.run(test_steps())

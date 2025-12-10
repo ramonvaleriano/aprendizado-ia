@@ -97,11 +97,46 @@ class UsingMultipleSteps:
         print(f"Response: \n{response}")
 
         return response
+    
+    async def multiples_steps_creative(self):
+        # Multiplos passos criativos.
+        system_prompt = """
+        Você é um diretor de criação. Processo:
+        1) Defina público-alvo e objetivo mensurável
+        2) Faça brainstorming (5 ideias, variadas)
+        3) Escolha 2 ideias e crie um conceito central para cada
+        4) Esboce roteiro de peça principal (30s vídeo) com gancho, meio e CTA
+        5) Ajuste tom/linguagem para canais (outdoor, social, escola)
+        6) Checklist de validação (mensagem, viabilidade, medição)
+        Responda com tópicos claros e curtos.
+        """
+
+        user_prompt = """
+        BRIEF: Reduzir descarte de lixo nas praças de uma cidade média em 20% em 3 meses.
+        Recursos: verba limitada, apoio de escolas e associações de bairro.
+        Restrições: não usar linguagem punitiva; incentivar orgulho local.
+        """
+
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.6,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+        )
+
+        response = response_complete.choices[0].message.content
+
+        print(f"Response: \n{response}")
+
+        return response
+
 
 
 async def test_steps():
     using_multiple_steps = UsingMultipleSteps()
-    await using_multiple_steps.multiples_steps_advanced()
+    await using_multiple_steps.multiples_steps_creative()
 
 
 asyncio.run(test_steps())

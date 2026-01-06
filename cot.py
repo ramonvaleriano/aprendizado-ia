@@ -102,7 +102,7 @@ class CotCadeiaDePensamentos:
         print(f"Resposta: {response}")
 
         return response
-    
+
     async def investiment_analysis(self):
         system_prompt = """
         Voce é um consultor financeiro que usa Chain of Thoughts (CoT).
@@ -125,15 +125,9 @@ class CotCadeiaDePensamentos:
             model=self.__model,
             temperature=0.4,
             messages=[
-                {
-                    "role": "system",
-                    "content": system_prompt
-                },
-                {
-                    "role": "user",
-                    "content": user_prompt
-                }
-            ]
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
         )
 
         response = response_complete.choices[0].message.content
@@ -142,7 +136,7 @@ class CotCadeiaDePensamentos:
         print(f"Resposta: {response}")
 
         return response
-    
+
     async def product_manage(self):
         system_prompt = """
         Você é um Product Manager que usa Chain of Thoughts (CoT).
@@ -165,15 +159,9 @@ class CotCadeiaDePensamentos:
             model=self.__model,
             temperature=0.3,
             messages=[
-                {
-                    "role": "system",
-                    "content": system_prompt
-                },
-                {
-                    "role": "user",
-                    "content": user_prompt
-                }
-            ]
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
         )
 
         response = response_complete.choices[0].message.content

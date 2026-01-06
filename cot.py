@@ -143,10 +143,50 @@ class CotCadeiaDePensamentos:
 
         return response
     
+    async def product_manage(self):
+        system_prompt = """
+        Você é um Product Manager que usa Chain of Thoughts (CoT).
+        Mostre o raciocínicio dentro de <cot> e finalize com a priorização.
+        """
+
+        user_prompt = """
+        Estamos desenvolvendo um aplicativo de bem-estar:
+        Funcionalidades propostas:
+        1.  Meditação guiada
+        2. Monitoramento e sonos
+        3. Gamificação de hábitos
+        4. Relatórios pesonalizados
+
+        Orçamento permite lançar apenas duas MVP.
+        Qual priorizar?
+        """
+
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.3,
+            messages=[
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": user_prompt
+                }
+            ]
+        )
+
+        response = response_complete.choices[0].message.content
+
+        print(f"Pergunta: {user_prompt}")
+        print(f"Resposta: {response}")
+
+        return response
+
 
 async def run_main():
     cadeia_de_pensamentos = CotCadeiaDePensamentos()
-    await cadeia_de_pensamentos.investiment_analysis()
+    await cadeia_de_pensamentos.product_manage()
 
 
 asyncio.run(run_main())

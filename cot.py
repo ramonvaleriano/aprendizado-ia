@@ -2,12 +2,14 @@ from groq import Groq
 from settings import model_start, groq_apy_key
 import asyncio
 
+
 class CotCadeiaDePensamentos:
     """
     Raciocinio estrutura e explícito
     Explicação transparente do Raciocinio
     Clareza na tomada de decisão
     """
+
     def __init__(self):
         self.__key = groq_apy_key
         self.__model = model_start
@@ -16,7 +18,7 @@ class CotCadeiaDePensamentos:
     async def initial_run(self):
         """
         Docstring para initial_run
-        
+
         :param self: Apnas fazendo o código rodar.
         """
 
@@ -27,24 +29,18 @@ class CotCadeiaDePensamentos:
             model=self.__model,
             temperature=1.5,
             messages=[
-                {
-                    "role": "system",
-                    "content": system_prompt
-                },
-                {
-                    "role": "user",
-                    "content": context_user
-                }
-            ]
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": context_user},
+            ],
         )
 
         response = response_complete.choices[0].message.content
 
-        print(f'Pergunta: {context_user}')
-        print(f'Resposta: {response}')
+        print(f"Pergunta: {context_user}")
+        print(f"Resposta: {response}")
 
         return response
-    
+
     async def marketing_strategist(self):
         system_prompt = """
         Você é um estrategista de marketing que sempre usa Chain of Thoughts (Cot).
@@ -66,24 +62,18 @@ class CotCadeiaDePensamentos:
             model=self.__model,
             temperature=0.4,
             messages=[
-                {
-                    "role": "system",
-                    "content": system_prompt
-                },
-                {
-                    "role": "user",
-                    "content": user_prompt
-                }
-            ]
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
         )
 
         response = response_complete.choices[0].message.content
 
-        print(f'Pergunta: {user_prompt}')
-        print(f'Resposta: {response}')
+        print(f"Pergunta: {user_prompt}")
+        print(f"Resposta: {response}")
 
         return response
-    
+
     async def cot_in_health(self):
         system_prompt = """
         Você é um médico que usa Chain of Thoughts (CoT) para raciocinio clínico.
@@ -101,21 +91,15 @@ class CotCadeiaDePensamentos:
             model=self.__model,
             temperature=0.3,
             messages=[
-                {
-                    "role": "system",
-                    "content": system_prompt
-                },
-                {
-                    "role": "user",
-                    "content": user_prompt
-                }
-            ]
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
         )
 
         response = response_complete.choices[0].message.content
 
-        print(f'Pergunta: {user_prompt}')
-        print(f'Resposta: {response}')
+        print(f"Pergunta: {user_prompt}")
+        print(f"Resposta: {response}")
 
         return response
 
@@ -123,5 +107,6 @@ class CotCadeiaDePensamentos:
 async def run_main():
     cadeia_de_pensamentos = CotCadeiaDePensamentos()
     await cadeia_de_pensamentos.cot_in_health()
+
 
 asyncio.run(run_main())

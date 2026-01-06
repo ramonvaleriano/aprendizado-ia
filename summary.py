@@ -125,10 +125,44 @@ class Summary:
 
         print(f"Pergunta: {user_prompt}")
         print(f"Resposta: {response}")
-    
+
+    async def summary_fourth(self):
+        system_prompt = """
+        Você é um redator técnico-científico. Produza em resumo técnico (3-4 frases),
+        destacando metodologi, resultados quantitativos e limitações.
+        """
+
+        user_prompt = """
+        Projeto de conservação marinha no litoral: monitoramento de recifes por sensores acústicos e foto-identificação de tartarugas;
+        dados coletados trimestralmente mostram recuperação gradual de populações locais (+12% em 2 anos),
+        mas aumento de resíduos plásticos nas áreas de alimentação; parcerias com pescadores locais reduziram
+        incidentes de emalhe em 35%. Necessidade de financiamento para ampliar estações de monitoramento
+        e campanhas comunitárias de educação ambiental. Risco climático: eventos de branqueamento relacionados à elevação de temperatura da água.
+        """
+
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.15,
+            messages=[
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": user_prompt
+                }
+            ]
+        )
+
+        response =  response_complete.choices[0].message.content
+
+        print(f"Pergunta: {user_prompt}")
+        print(f"Resposta: {response}")
+
 
 async def run_main():
     summary = Summary()
-    await summary.summary_third()
+    await summary.summary_fourth()
 
 asyncio.run(run_main())

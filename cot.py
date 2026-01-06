@@ -102,11 +102,51 @@ class CotCadeiaDePensamentos:
         print(f"Resposta: {response}")
 
         return response
+    
+    async def investiment_analysis(self):
+        system_prompt = """
+        Voce é um consultor financeiro que usa Chain of Thoughts (CoT).
+        Mostre seu raciocinio dentro de <cot> e termine com uma recomendação objetiva.
+        """
 
+        user_prompt = """
+        Uma startup de tecnologia está levantando R$ 5 Milhões
+        Dados:
+        - Receita atual: R$ 300mil/mês
+        - Crescimento: 12% ao mês
+        - Equipe: 20 pessoas
+        - Concorrência: forte no mercado nacional
+        - Risco: dependência de um único grande cliente
+
+        Devo recomendar o investimento?
+        """
+
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.4,
+            messages=[
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": user_prompt
+                }
+            ]
+        )
+
+        response = response_complete.choices[0].message.content
+
+        print(f"Pergunta: {user_prompt}")
+        print(f"Resposta: {response}")
+
+        return response
+    
 
 async def run_main():
     cadeia_de_pensamentos = CotCadeiaDePensamentos()
-    await cadeia_de_pensamentos.cot_in_health()
+    await cadeia_de_pensamentos.investiment_analysis()
 
 
 asyncio.run(run_main())

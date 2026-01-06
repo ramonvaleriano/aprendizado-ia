@@ -87,10 +87,48 @@ class Summary:
 
         print(f"Pergunta: {user_prompt}")
         print(f"Resposta: {response}")
+
+    async def summary_third(self):
+        system_prompt = """
+        Você é um consultor executivo. Construa um resumo executivo com:
+        1) Sintese em 2-3 frases
+        2) Principais métricas (visitantes, receita direta, parcerias)
+        3) 3 Recomendações acionáveis para o próximo ano (prioricadas)
+        Seja conciso e orientado para decisão
+        """
+
+        user_prompt = """
+        Relatório: Festival "Olhar Curto" (3 dias).
+        Métricas: 4.200 visitantes (inclui sessões pagas e gratuitas), receita direta: R$ 180.000 (ingressos + barra),
+        patrocínios: R$ 70.000, custos operacionais: R$ 150.000.
+        Impacto local: aumento de 18% no movimento de bares e cafés próximos durante o evento;
+        envolvimento de 6 escolas técnicas; 25 curtas exibidos, 8 produções locais.
+        Desafios: logística de exibição ao ar livre (chuva reprogramou 2 sessões), bilheteria online com alta taxa de desistência.
+        """
+
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.15,
+            messages=[
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": user_prompt
+                }
+            ]
+        )
+
+        response =  response_complete.choices[0].message.content
+
+        print(f"Pergunta: {user_prompt}")
+        print(f"Resposta: {response}")
     
 
 async def run_main():
     summary = Summary()
-    await summary.summary_tourth()
+    await summary.summary_third()
 
 asyncio.run(run_main())

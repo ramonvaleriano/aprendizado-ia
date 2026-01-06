@@ -160,9 +160,46 @@ class Summary:
         print(f"Pergunta: {user_prompt}")
         print(f"Resposta: {response}")
 
+    async def summary_fifth(self):
+        system_prompt = """
+        Resuma o seguinte texto em JSON.
+        o JSON deve conter as chaves:
+        - "setores" (Lista com os setores impactados)
+        - "beneficios" (Lista com os principais benefícios citados)
+        - "desafios (lista com os riscos ou preocupações levanadas)
+        """
+
+        user_prompt = """
+        A inteligência artificial está transformando setores como saúde, finanças e educação.
+        Na medicina, auxilia no diagnóstico precoce de doenças. No setor financeiro, detecta fraudes
+        e otimiza investimentos. Na educação, personaliza o aprendizado para cada estudante.
+        Apesar dos avanços, existem preocupações éticas sobre privacidade, viés algorítmico
+        e substituição de empregos.
+        """
+
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=0.15,
+            messages=[
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": user_prompt
+                }
+            ]
+        )
+
+        response =  response_complete.choices[0].message.content
+
+        print(f"Pergunta: {user_prompt}")
+        print(f"Resposta: {response}")
+
 
 async def run_main():
     summary = Summary()
-    await summary.summary_fourth()
+    await summary.summary_fifth()
 
 asyncio.run(run_main())

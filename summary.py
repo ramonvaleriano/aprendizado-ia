@@ -35,24 +35,18 @@ class Summary:
             model=self.__model,
             temperature=0.2,
             messages=[
-                {
-                    "role": "system",
-                    "content": system_prompt
-                },
-                {
-                    "role": "user",
-                    "content": user_prompt
-                }
-            ]
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
         )
 
-        response =  response_complete.choices[0].message.content
+        response = response_complete.choices[0].message.content
 
         print(f"Pergunta: {user_prompt}")
         print(f"Resposta: {response}")
 
         return response
-    
+
     async def summary_tourth(self):
         system_prompt = """
         Você uma anlsita de politicas publicas. Gere um resumo em bullet points claros e hierarquicos:
@@ -62,28 +56,22 @@ class Summary:
         Mantenha frases curtas
         """
 
-        user_prompt= """
+        user_prompt = """
         Relatório Piloto: Nova rota de ciclovia e corredores de ônibus rápidos implementada por 12 semanas.
         Resultados preliminares: aumento no uso de bicicleta em 22% nas rotas testadas; redução de tempo médio de deslocamento em ônibus local em 8%; aumento de reclamações de comerciantes sobre estacionamento; registro de 3 incidentes leves envolvendo ciclistas.
         Observações: infraestrutura temporária com sinalização provisória; campanhas educativas em 4 bairros; orçamento limitado para fiscalização.
         """
 
         response_complete = self.client.chat.completions.create(
-            model = self.__model,
+            model=self.__model,
             temperature=0.25,
             messages=[
-                {
-                    "role": "system",
-                    "content": system_prompt
-                },
-                {
-                    "role": "user",
-                    "content": user_prompt
-                }
-            ]
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
         )
 
-        response =  response_complete.choices[0].message.content
+        response = response_complete.choices[0].message.content
 
         print(f"Pergunta: {user_prompt}")
         print(f"Resposta: {response}")
@@ -110,18 +98,12 @@ class Summary:
             model=self.__model,
             temperature=0.15,
             messages=[
-                {
-                    "role": "system",
-                    "content": system_prompt
-                },
-                {
-                    "role": "user",
-                    "content": user_prompt
-                }
-            ]
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
         )
 
-        response =  response_complete.choices[0].message.content
+        response = response_complete.choices[0].message.content
 
         print(f"Pergunta: {user_prompt}")
         print(f"Resposta: {response}")
@@ -144,18 +126,12 @@ class Summary:
             model=self.__model,
             temperature=0.15,
             messages=[
-                {
-                    "role": "system",
-                    "content": system_prompt
-                },
-                {
-                    "role": "user",
-                    "content": user_prompt
-                }
-            ]
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
         )
 
-        response =  response_complete.choices[0].message.content
+        response = response_complete.choices[0].message.content
 
         print(f"Pergunta: {user_prompt}")
         print(f"Resposta: {response}")
@@ -181,18 +157,12 @@ class Summary:
             model=self.__model,
             temperature=0.15,
             messages=[
-                {
-                    "role": "system",
-                    "content": system_prompt
-                },
-                {
-                    "role": "user",
-                    "content": user_prompt
-                }
-            ]
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
         )
 
-        response =  response_complete.choices[0].message.content
+        response = response_complete.choices[0].message.content
 
         print(f"Pergunta: {user_prompt}")
         print(f"Resposta: {response}")
@@ -201,5 +171,6 @@ class Summary:
 async def run_main():
     summary = Summary()
     await summary.summary_fifth()
+
 
 asyncio.run(run_main())

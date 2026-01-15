@@ -4,6 +4,14 @@ from settings import groq_apy_key, model_start
 
 
 class ComplementText:
+    """
+    Complemento Contextual
+    1. Expansão de tópicos -> desenvolvimento de pontos em parágrafos
+    2. Expansão criativa -> narrativas envolventes
+    3. Expansão atgumentativa -> Justificativas sólidas
+    4. Expansão técnica -> explicações detalhadas e exemplos práticos
+    5. Expansão de outline -> tranformação de estrutura em conteúdo completo
+    """
     def __init__(self):
         self.__model = model_start
         self.__key = groq_apy_key

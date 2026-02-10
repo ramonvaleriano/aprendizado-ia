@@ -29,7 +29,7 @@ class Roles:
                     "role": "user",
                     "content": "Me explique de forma resumida o que são as LLMs.",
                 }
-            ]
+            ],
         )
 
         response = response_complete.choices[0].message.content
@@ -38,8 +38,34 @@ class Roles:
         print(response)
 
         return response
-    
+
+    async def role_second(self):
+        system_prompt = (
+            "Você é um especialista em IA que responde de forma clara e objetiva"
+        )
+        user_prompt = "Explique a importância de LLMS com baixa latência."
+        assistant = "LLMs com baixa latência permitem respostas mais rápidas, o que melhora a experiência do usuário."
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+                {"role": "assistant", "content": assistant},
+                {
+                    "role": "user",
+                    "content": "Pode dar exemplos de aplicações práticas?",
+                },
+            ],
+        )
+
+        response = response_complete.choices[0].message.content
+
+        print("Mensagem de Retorno: ")
+        print(response)
+
+        return response
+
 
 async def run_main():
     role_groq = Roles()
-    await role_groq.role_first()
+    await role_groq.role_second()

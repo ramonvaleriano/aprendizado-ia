@@ -40,8 +40,31 @@ class BestPratics:
         print(response)
 
         return response
+    
+    async def best_pratics_second(self):
+        """Prompt vago"""
+        system_prompt = "Você é um especialista em gastronimia."
+        user_prompt = "Liste e expique 3 métodos de preparo de café que realçam diferentes sabores."
+
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=self.temperature,
+            max_completion_tokens=800,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+        )
+
+        response = response_complete.choices[0].message.content
+
+        print(f"Pergunta: {user_prompt}")
+        print("Reponse: ")
+        print(response)
+
+        return response
 
 
 async def run_main():
     best_pratics = BestPratics()
-    await best_pratics.best_pratics_first()
+    await best_pratics.best_pratics_second()

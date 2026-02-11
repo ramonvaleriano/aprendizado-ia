@@ -164,7 +164,70 @@ class BestPratics:
 
         return response
 
+    async def best_pratics_seventh(self):
+        """Sem delimitadores para respostas"""
+        system_prompt = "Você é um consultor de negócios."
+
+        user_prompt = """
+        Analise o desempenho de uma startup: 
+        Receita 2022: R$ 2M, Receita 2023: R$ 3.5M, Receita 2024: R$ 5M.
+        Faça observações e dê sugestões.
+        """
+
+
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=self.temperature,
+            max_completion_tokens=400,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+        )
+
+        response = response_complete.choices[0].message.content
+
+        print(f"Pergunta: {user_prompt}")
+        print("Reponse: ")
+        print(response)
+
+        return response
+    
+    async def best_pratics_eighth(self):
+        """Com delimitadores nas respostas"""
+        system_prompt = "Você é um consultor de negócios e deve considerar apenas os dados entre os delimitadores."
+
+        user_prompt = """
+        Analise os seguintes dados de receita anual:
+
+        --- DADOS ---
+        2022: R$ 2M
+        2023: R$ 3.5M
+        2024: R$ 5M
+        --- FIM DADOS ---
+
+        TAREFA: Identifique o ritmo de crescimento e sugira 2 estratégias de expansão.
+        """
+
+
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=self.temperature,
+            max_completion_tokens=800,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+        )
+
+        response = response_complete.choices[0].message.content
+
+        print(f"Pergunta: {user_prompt}")
+        print("Reponse: ")
+        print(response)
+
+        return response
 
 async def run_main():
     best_pratics = BestPratics()
-    await best_pratics.best_pratics_sixth()
+    await best_pratics.best_pratics_eighth()

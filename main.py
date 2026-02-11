@@ -1,6 +1,6 @@
 import asyncio
-from agentes_de_ia_zero_ao_avancado.a_engenharia_de_prompt.engenharia_de_prompt import roles
+from agentes_de_ia_zero_ao_avancado.a_engenharia_de_prompt.engenharia_de_prompt import roles, parameters
 
 
 if __name__ == "__main__":
-    asyncio.run(roles.run_main())
+    asyncio.run(parameters.run_main())

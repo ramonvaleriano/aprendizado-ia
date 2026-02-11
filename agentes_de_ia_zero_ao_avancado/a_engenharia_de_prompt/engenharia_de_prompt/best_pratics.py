@@ -227,7 +227,48 @@ class BestPratics:
         print(response)
 
         return response
+    
+    async def best_pratics_ninth(self):
+        """Com delimitadores nas respostas"""
+        system_prompt = """
+        Você é um estrategista de marketing criativo.
+        Sempre siga o formato solicitado e use linguagem clara e objetiva.
+        """
+
+        user_prompt = """
+        TAREFA: Criar um mini plano de marketing para lançamento de um aplicativo fitness.
+
+        --- INFORMAÇÕES ---
+        Público: jovens de 18-30 anos
+        Orçamento: R$ 50.000
+        Objetivo: 10.000 downloads no primeiro mês
+        --- FIM ---
+
+        FORMATO DA RESPOSTA:
+        1. POSICIONAMENTO (2 frases)
+        2. CANAIS DE MARKETING (3 itens numerados)
+        3. AÇÃO CRIATIVA PRINCIPAL (1 frase)
+        """
+
+
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            temperature=self.temperature,
+            max_completion_tokens=800,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+        )
+
+        response = response_complete.choices[0].message.content
+
+        print(f"Pergunta: {user_prompt}")
+        print("Reponse: ")
+        print(response)
+
+        return response
 
 async def run_main():
     best_pratics = BestPratics()
-    await best_pratics.best_pratics_eighth()
+    await best_pratics.best_pratics_ninth()

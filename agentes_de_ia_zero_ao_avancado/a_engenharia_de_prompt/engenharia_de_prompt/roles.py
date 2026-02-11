@@ -64,8 +64,44 @@ class Roles:
         print(response)
 
         return response
+    
+    async def role_third(self):
+        system_prompt = """
+        Você é um especialista em Inteligência Artificial focado em explicar conceitos
+        de forma clara, estruturada e prática. Sempre inicie suas respostas com um
+        resumo em até 3 linhas, depois detalhe com exemplos reais e aplicações no mundo
+        dos negócios e tecnologia. Evite termos excessivamente técnicos sem explicação
+        e, quando necessário, use analogias simples. 
+        Se o usuário pedir código, forneça exemplos em Python bem comentados.
+        """
+
+        user_prompt = "Explique a importância de LLM com baixa latência."
+
+        response_complete = self.client.chat.completions.create(
+            model=self.__model,
+            messages=[
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": user_prompt
+                }
+            ]
+        )
+
+        response = response_complete.choices[0].message.content
+
+        print(f"A pergunta: {user_prompt}")
+
+        print("Response:")
+
+        print(response)
+
+        return response
 
 
 async def run_main():
     role_groq = Roles()
-    await role_groq.role_second()
+    await role_groq.role_third()

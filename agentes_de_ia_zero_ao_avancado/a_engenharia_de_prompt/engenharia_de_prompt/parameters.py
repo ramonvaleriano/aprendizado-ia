@@ -16,6 +16,7 @@ class Parameters:
         self.__api_key = GROQ_API
         self.client = Groq(api_key=self.__api_key)
         self.temperature = 0.0
+        self.top_p = 0.1
 
     async def parameters_first(self):
         system_prompt = "Você é um poéta minimalista que descreve a natureza de forma simples e direta"
@@ -37,7 +38,7 @@ class Parameters:
         print(response)
 
         return response
-    
+
     async def parameters_second(self):
         system_prompt = "Você é um poéta um poeta clássico que mistura metáforas e imagens da natureza."
         user_prompt = "Escreva uma frase poética sobre o anoitecer."
@@ -83,7 +84,32 @@ class Parameters:
         print(response)
 
         return response
+    
+    async def parameters_forth(self):
+        system_prompt = "Você é um futurista que faz previsões sérias e objetivas sobre tecnologias."
+        user_prompt = "Complete a frase: 'A Inteligencia artificial no futuro será...'"
+
+        self.temperature = 1.0
+
+        response_complete = self.client.chat.completions.create(
+            temperature=self.temperature,
+            top_p=self.top_p,
+            model=self.__model,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+        )
+
+        response = response_complete.choices[0].message.content
+
+        print(f"Pergunta: {user_prompt}")
+        print("Reponse: ")
+        print(response)
+
+        return response
+
 
 async def run_main():
     parameters_groq = Parameters()
-    await parameters_groq.parameters_second()
+    await parameters_groq.parameters_forth()

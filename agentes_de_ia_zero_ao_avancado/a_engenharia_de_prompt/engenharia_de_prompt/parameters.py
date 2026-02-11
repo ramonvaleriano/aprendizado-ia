@@ -133,8 +133,33 @@ class Parameters:
         print(response)
 
         return response
+    
+    async def parameters_sixth(self):
+        system_prompt = "Você é um futurista que faz previsões sérias e objetivas sobre tecnologias."
+        user_prompt = "Complete a frase: 'A Inteligencia artificial no futuro será...'"
+
+        self.temperature = 1.0
+        self.top_p = 0.9
+
+        response_complete = self.client.chat.completions.create(
+            temperature=self.temperature,
+            top_p=self.top_p,
+            model=self.__model,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+        )
+
+        response = response_complete.choices[0].message.content
+
+        print(f"Pergunta: {user_prompt}")
+        print("Reponse: ")
+        print(response)
+
+        return response
 
 
 async def run_main():
     parameters_groq = Parameters()
-    await parameters_groq.parameters_forth()
+    await parameters_groq.parameters_sixth()

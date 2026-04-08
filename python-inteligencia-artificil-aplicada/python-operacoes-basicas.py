@@ -83,3 +83,34 @@ altura = 1.70
 print(type(idade))
 print(type(casado))
 print(type(altura))
+
+"""
+    Manipulando Strings em Python: Métodos `lower`, `upper`, `strip`, `split` e `replace`
+"""
+
+complete_text_start = " Ramon   Rodrigues Valeriano "
+print(complete_text_start)
+
+upper_text_complete = complete_text_start.upper()
+print(upper_text_complete)
+
+lower_text_complete = complete_text_start.lower()
+print(lower_text_complete)
+
+split_text_complet = complete_text_start.split(" ")
+print(split_text_complet)
+
+split_text_complet = complete_text_start.split()
+print(split_text_complet)
+
+filhos = "Gael,Dante,Rayan"
+print(filhos)
+splint_filhos = filhos.split(",")
+print(splint_filhos)
+
+espacos_externos = complete_text_start.strip()
+print(espacos_externos)
+
+replace_text = complete_text_start.replace("  ", " ").strip()
+print(replace_text)
+

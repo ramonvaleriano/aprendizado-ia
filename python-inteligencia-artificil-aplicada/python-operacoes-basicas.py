@@ -114,3 +114,15 @@ print(espacos_externos)
 replace_text = complete_text_start.replace("  ", " ").strip()
 print(replace_text)
 
+"""
+    Recebendo Dados do Usuário com `input` e Formatando Textos com fStrings
+"""
+
+name_compete = str(input("Qual o seu nome? "))
+age = int(input("Qual a sua idade? "))
+altura = float(input("Qual a sua altura? "))
+
+print(f"Seu nome é: {name_complete}")
+print(f"Sua idade é: {age}")
+print(f"A sua altura é: {altura}")
+print(f"{name_compete} tem {age} anos e mede {altura}")

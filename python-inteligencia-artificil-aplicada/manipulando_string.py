@@ -11,4 +11,4 @@ response = client.models.generate_content(
     contents="Que tipo de IA é você?"
 )
 
-print(response.text
+print(response.text)
